@@ -46,18 +46,17 @@ function init() {
   });
   plane = new THREE.Mesh(new THREE.PlaneGeometry( 1, 1, 1, 1 ), material);
   scene.add( plane );
-
   resize();
 }
 
 
-document.addEventListener('wheel',function(event) {
-  time += event.deltaY*0.0002;
-});
+// document.addEventListener('wheel',function(event) {
+//   time += event.deltaY*0.0002;
+// });
 
 
 let animate = function () {
-  //time = time + 0.004;
+  time = time + 0.004;
   if(time > 1.0) {
     time = 0;
     curSlide = (curSlide + 1) % gallery.length;
@@ -70,7 +69,7 @@ let animate = function () {
     material.uniforms.texture1.value = gallery[curSlide];
     material.uniforms.texture2.value = gallery[(curSlide + 1) % gallery.length];
   }
-  material.uniforms.time.value = time;
+  material.uniforms.time.value = Math.sin(time * Math.PI / 2);
   requestAnimationFrame( animate );
   renderer.render( scene, camera );
 };
