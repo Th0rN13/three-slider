@@ -49,12 +49,6 @@ function init() {
   resize();
 }
 
-
-// document.addEventListener('wheel',function(event) {
-//   time += event.deltaY*0.0002;
-// });
-
-
 let animate = function () {
   time = time + 0.004;
   if(time > 1.0) {
