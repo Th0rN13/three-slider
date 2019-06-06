@@ -24,19 +24,20 @@ void main() {
 
   float p = fract(time);
 
-  float delayValue = p*7. + uv.y*2. - uv.x*0.8 - 2.;
+  //float delayValue = p*12. - 10.*sqrt((uv.x-0.5)*(uv.x-0.5) + (uv.y-0.5)*(uv.y-0.5)*2.5);
+  float delayValue = p*12. - 10.*distance(vec2(0.5, 0.5), uv);
 
-  delayValue = clamp(delayValue,0.,1.);
+  delayValue = clamp(delayValue, 0.,1.);
 
   vec2 translateValue = p + delayValue*accel;
-  vec2 translateValue1 = vec2(-0.5,1.)* translateValue;
-  vec2 translateValue2 = vec2(-1,0.5)* (translateValue - 1. - accel);
+  vec2 translateValue1 = vec2(-0.1,0.2)* translateValue;
+  vec2 translateValue2 = vec2(-2,0.1)* (translateValue - 1. - accel);
 
-  vec2 w = sin( sin(time)*vec2(0,0.2) + vUv.xy*vec2(0.1,0.5))*vec2(0,-0.3);
-  vec2 xy = w*(tri(p)*0.5 + tri(delayValue)*0.5);
+  vec2 w = sin( sin(time)*vec2(0,0.1) + vUv.yx*vec2(0,0.5))*vec2(0,0.5);
+	vec2 xy = w*(tri(p)*0.3 + tri(delayValue)*0.2);
 
-  vec2 uv1 = vUv1 + translateValue1 + xy;
-  vec2 uv2 = vUv1 + translateValue2 + xy;
+  vec2 uv1 = vUv1 + xy;
+	vec2 uv2 = vUv1 + xy;
 
   vec4 rgba1 = texture2D(texture1,mirrored(uv1));
   vec4 rgba2 = texture2D(texture2,mirrored(uv2));
